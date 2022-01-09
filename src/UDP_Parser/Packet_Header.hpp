@@ -3,6 +3,8 @@
 
 #include <c_types.h>
 
+#define PACKET_HEADER_SIZE 24
+
 struct PacketHeader
 {
     uint16    m_packetFormat;            // 2021
