@@ -2,6 +2,16 @@
 
 LOGDriver::LOGDriver(void)
 {
+
+}
+
+LOGDriver::~LOGDriver(void)
+{
+
+}
+
+void LOGDriver::init(void)
+{
 #ifdef LOG_SERIAL
   Serial.begin(115200);
   Serial.setTimeout(2000);
@@ -11,11 +21,6 @@ LOGDriver::LOGDriver(void)
   {
   }
 #endif
-}
-
-LOGDriver::~LOGDriver(void)
-{
-
 }
 
 void LOGDriver::println(String s)

@@ -6,9 +6,12 @@
 class LOGDriver 
 {
   public:
+  static void init(void);
+  static void println(String s);
+
+  private:
   LOGDriver();
   ~LOGDriver();
-  static void println(String s);
 };
 
 #endif
