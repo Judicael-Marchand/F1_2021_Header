@@ -20,7 +20,7 @@ struct PacketHeader
                                          // 255 if no second player
 };
 
-enum
+enum PacketID
 {
     PACKET_ID_MOTION = 0,
     PACKET_ID_SESSION,
@@ -34,6 +34,6 @@ enum
     PACKET_ID_LOBBY_INFO,
     PACKET_ID_CAR_DAMAGE,
     PACKET_ID_SESSION_HISTORY
-} packetID_t;
+};
 
 #endif
