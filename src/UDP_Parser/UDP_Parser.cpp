@@ -91,6 +91,10 @@ void UDP_Parser::decodeData(void)
         case PACKET_ID_SESSION_HISTORY:
             memcpy(&mPacketSessionHistoryData, mUDPRawPacketData, SESSION_HISTORY_PACKET_SIZE);
         break;
+
+        default:
+            // Don't care
+        break;
     }
 
     mIsDataAvailable = true;    // Raise the flag
@@ -101,6 +105,11 @@ boolean UDP_Parser::checkDataAvailibility(void)
     return mIsDataAvailable;
 }
 
+void UDP_Parser::setDataAvailibility(boolean b)
+{
+    mIsDataAvailable = b;
+}
+
 enum PacketID UDP_Parser::getPacketID(void)
 {
     return mPacketID;
@@ -109,4 +118,12 @@ enum PacketID UDP_Parser::getPacketID(void)
 uint8_t UDP_Parser::getPlayerCarIndex(void)
 {
     return mPlayerCarIndex;
+}
+
+void UDP_Parser::execute(void)
+{
+    if(this->checkRawDataAvailibility())
+    {
+        this->decodeData();
+    }
 }

@@ -34,8 +34,10 @@ class UDP_Parser
     boolean checkRawDataAvailibility(void);
     void decodeData(void);
     boolean checkDataAvailibility(void);
+    void setDataAvailibility(boolean b);
     enum PacketID getPacketID(void);
     uint8_t getPlayerCarIndex(void);
+    void execute(void);
 
     struct PacketHeader mPacketHeader;
     struct PacketMotionData mPacketMotionData;
