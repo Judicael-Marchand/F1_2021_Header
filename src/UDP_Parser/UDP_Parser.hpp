@@ -14,6 +14,7 @@
 #include "Participants_Packet.hpp"
 #include "Session_History_Packet.hpp"
 #include "Session_Packet.hpp"
+#include "General_Packet_Information.hpp"
 #include "LogDriver.hpp"
 #include "WiFiDriver.hpp"
 
