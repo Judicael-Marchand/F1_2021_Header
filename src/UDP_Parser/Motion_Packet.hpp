@@ -7,6 +7,7 @@
 
 typedef int16_t int16;
 
+#pragma pack(push, 1)
 struct CarMotionData
 {
     float         m_worldPositionX;           // World space X position
@@ -52,5 +53,6 @@ struct PacketMotionData
     float         m_angularAccelerationZ;        // Angular velocity z-component
     float         m_frontWheelsAngle;            // Current front wheels angle in radians
 };
+#pragma pack(pop)
 
 #endif

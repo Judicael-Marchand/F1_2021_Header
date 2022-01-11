@@ -5,6 +5,7 @@
 
 #define CAR_DAMAGE_PACKET_SIZE  882
 
+#pragma pack(push, 1)
 struct CarDamageData
 {
     float     m_tyresWear[4];                     // Tyre wear (percentage)
@@ -33,5 +34,6 @@ struct PacketCarDamageData
 
     CarDamageData   m_carDamageData[22];
 };
+#pragma pack(pop)
 
 #endif

@@ -23,7 +23,7 @@
 #define FLASHBACK				"FLBK"	// Flashback activated
 #define BUTTON_STATUS			"BUTN"	// Button status changed
 
-
+#pragma pack(push, 1)
 // The event details packet is different for each type of event.
 // Make sure only the correct type is interpreted.
 union EventDataDetails
@@ -104,5 +104,6 @@ struct PacketEventData
     EventDataDetails	m_eventDetails;         	// Event details - should be interpreted differently
                                                  // for each type
 };
+#pragma pack(pop)
 
 #endif

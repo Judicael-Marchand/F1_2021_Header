@@ -5,6 +5,7 @@
 
 #define LAP_DATA_PACKET_SIZE 970
 
+#pragma pack(push, 1)
 struct LapData
 {
     uint32   m_lastLapTimeInMS;	       	 // Last lap time in milliseconds
@@ -45,5 +46,6 @@ struct PacketLapData
 
     LapData         m_lapData[22];         // Lap data for all cars on track
 };
+#pragma pack(pop)
 
 #endif

@@ -5,6 +5,7 @@
 
 #define PACKET_HEADER_SIZE 24
 
+#pragma pack(push, 1)
 struct PacketHeader
 {
     uint16    m_packetFormat;            // 2021
@@ -35,5 +36,6 @@ enum PacketID
     PACKET_ID_CAR_DAMAGE,
     PACKET_ID_SESSION_HISTORY
 };
+#pragma pack(pop)
 
 #endif

@@ -5,6 +5,7 @@
 
 #define CAR_TELEMETRY_PACKET_SIZE 1347
 
+#pragma pack(push, 1)
 struct CarTelemetryData
 {
     uint16    m_speed;                    // Speed of car in kilometres per hour
@@ -39,5 +40,6 @@ struct PacketCarTelemetryData
     int8                m_suggestedGear;       // Suggested gear for the player (1-8)
                                                // 0 if no gear suggested
 };
+#pragma pack(pop)
 
 #endif

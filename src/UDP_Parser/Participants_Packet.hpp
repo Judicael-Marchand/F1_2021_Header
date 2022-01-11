@@ -5,6 +5,7 @@
 
 #define PARTICIPANTS_PACKET_SIZE 1257
 
+#pragma pack(push, 1)
 struct ParticipantData
 {
     uint8      m_aiControlled;           // Whether the vehicle is AI (1) or Human (0) controlled
@@ -27,5 +28,6 @@ struct PacketParticipantsData
                                          // cars on HUD
     ParticipantData m_participants[22];
 };
+#pragma pack(pop)
 
 #endif

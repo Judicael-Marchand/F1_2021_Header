@@ -5,6 +5,7 @@
 
 #define LOBBY_INFO_PACKET_SIZE 1191
 
+#pragma pack(push, 1)
 struct LobbyInfoData
 {
     uint8     m_aiControlled;            // Whether the vehicle is AI (1) or Human (0) controlled
@@ -24,5 +25,6 @@ struct PacketLobbyInfoData
     uint8               m_numPlayers;               // Number of players in the lobby data
     LobbyInfoData       m_lobbyPlayers[22];
 };
+#pragma pack(pop)
 
 #endif

@@ -5,6 +5,7 @@
 
 #define SESSION_PACKET_SIZE 625
 
+#pragma pack(push, 1)
 struct MarshalZone
 {
     float  m_zoneStart;   // Fraction (0..1) of way through the lap the marshal zone starts
@@ -74,5 +75,6 @@ struct PacketSessionData
     uint8           m_dynamicRacingLine;         // 0 = off, 1 = corners only, 2 = full
     uint8           m_dynamicRacingLineType;     // 0 = 2D, 1 = 3D
 };
+#pragma pack(pop)
 
 #endif

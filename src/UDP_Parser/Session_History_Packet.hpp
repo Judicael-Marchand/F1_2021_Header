@@ -5,6 +5,7 @@
 
 #define SESSION_HISTORY_PACKET_SIZE 1155
 
+#pragma pack(push, 1)
 struct LapHistoryData
 {
     uint32    m_lapTimeInMS;           // Lap time in milliseconds
@@ -38,5 +39,6 @@ struct PacketSessionHistoryData
     LapHistoryData          m_lapHistoryData[100];	// 100 laps of data max
     TyreStintHistoryData    m_tyreStintsHistoryData[8];
 };
+#pragma pack(pop)
 
 #endif

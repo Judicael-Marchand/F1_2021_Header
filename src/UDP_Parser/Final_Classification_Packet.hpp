@@ -5,6 +5,7 @@
 
 #define FINAL_CLASSIFICATION_PACKET_SIZE 839
 
+#pragma pack(push, 1)
 struct FinalClassificationData
 {
     uint8     m_position;              // Finishing position
@@ -30,5 +31,6 @@ struct PacketFinalClassificationData
     uint8                      m_numCars;          // Number of cars in the final classification
     FinalClassificationData    m_classificationData[22];
 };
+#pragma pack(pop)
 
 #endif

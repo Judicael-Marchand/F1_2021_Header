@@ -5,6 +5,7 @@
 
 #define CAR_STATUS_PACKET_SIZE 1058
 
+#pragma pack(push, 1)
 struct CarStatusData
 {
     uint8       m_tractionControl;          // Traction control - 0 = off, 1 = medium, 2 = full
@@ -49,5 +50,6 @@ struct PacketCarStatusData
 
     CarStatusData	m_carStatusData[22];
 };
+#pragma pack(pop)
 
 #endif

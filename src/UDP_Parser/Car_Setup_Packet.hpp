@@ -5,6 +5,7 @@
 
 #define CAR_SETUP_PACKET_SIZE 1102
 
+#pragma pack(push, 1)
 struct CarSetupData
 {
     uint8     m_frontWing;                // Front wing aero
@@ -37,5 +38,6 @@ struct PacketCarSetupData
 
     CarSetupData    m_carSetups[22];
 };
+#pragma pack(pop)
 
 #endif
