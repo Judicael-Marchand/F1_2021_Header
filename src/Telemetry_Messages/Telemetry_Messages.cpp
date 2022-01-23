@@ -44,6 +44,21 @@ void Telemetry_Messages::storeAvailableData(void)
             mMessageID = CAR_MESSAGE_ID;
         break;
 
+        case PACKET_ID_CAR_STATUS:
+            mCarInformation.m_currentTyreType = (TyreType)mUDPParser->mPacketCarStatusData.m_carStatusData[mUDPParser->getPlayerCarIndex()].m_visualTyreCompound;
+            mMessageID = CAR_MESSAGE_ID;
+        break;
+
+        case PACKET_ID_CAR_TELEMETRY:
+            mCarInformation.m_gear = mUDPParser->mPacketCarTelemetryData.m_carTelemetryData[mUDPParser->getPlayerCarIndex()].m_gear;
+            mMessageID = CAR_MESSAGE_ID;
+        break;
+
+        case PACKET_ID_PARTICIPANTS:
+            mSessionInformation.m_numActiveCars = mUDPParser->mPacketParticipantsData.m_numActiveCars;
+            mMessageID = SESSION_MESSAGE_ID;
+        break;
+
         default:
             // Don't care
         break;

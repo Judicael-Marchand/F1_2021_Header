@@ -12,6 +12,7 @@ struct SessionInformation
     uint8_t m_carPosition;
     uint8_t m_currentLapNum;
     uint8_t m_finalPosition;
+    uint8_t m_numActiveCars;
 };
 
 struct TyreWear
@@ -22,9 +23,20 @@ struct TyreWear
     float m_frontRight; 
 };
 
+enum TyreType
+{
+    INTER_TYRE = 7,
+    WET_TYRE,
+    SOFT_TYRE = 16,
+    MEDIUM_TYRE,
+    HARD_TYRE
+};
+
 struct CarInformation
 {
     TyreWear m_TyreWear;
+    TyreType m_currentTyreType;
+    int8_t m_gear;
 };
 
 enum MessageID
