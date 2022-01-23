@@ -16,6 +16,8 @@ LCDDriver::LCDDriver(void)
   tft->setTextColor(ILI9341_WHITE);
   this->setTextSize(2);
   tft->setSPISpeed(40000000); // Tried setting up new SPI speed for faster refreshing but doesn't seem to work. Guess I'm on the limit of the chip
+  // Display welcome message
+  displayWelcomeTitle();
 }
 
 LCDDriver::~LCDDriver()
