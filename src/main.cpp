@@ -15,6 +15,6 @@ void setup()
 
 void loop()
 {
+  mScreenHandler->execute();
   OTAHandler::execute();
-  delay(1);
 }
