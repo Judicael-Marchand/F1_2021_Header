@@ -204,3 +204,43 @@ uint16_t LCDDriver::convertRGB24toRGB565(uint8_t r, uint8_t g, uint8_t b)
 {
   return ((r / 8) << 11) | ((g / 4) << 5) | (b / 8);
 }
+
+void LCDDriver::updateFirmwareUpdateProgress(uint8_t percentage)
+{
+  String buffer = "Updating : " + String(percentage) + "%";
+  String resetBuffer = "Updating : 100%";
+
+  tft->setTextColor(ILI9341_WHITE);
+  this->setTextSize(2);
+
+  // Reset the screen part of the percentage
+  resetScreenPart((tft->width() - getStringWidthOnScreen(resetBuffer)) / 2, (tft->height() - getStringHeightOnScreen(resetBuffer)) / 2, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
+
+  // Print update percentage
+  tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, (tft->height() - getStringHeightOnScreen(buffer)) / 2);
+  tft->print(buffer);
+  }
+
+void LCDDriver::updateFirmwareUpdateFinished(void)
+{
+  String buffer = "Update finished, restarting...";
+
+  tft->setTextColor(ILI9341_WHITE);
+  this->setTextSize(2);
+
+  // Print finished message
+  tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, (tft->height() - getStringHeightOnScreen(buffer)) / 2);
+  tft->print(buffer);
+}
+
+void LCDDriver::updateFirmwareUpdateError(String e)
+{
+  String buffer = "Update error : " + e;
+
+  tft->setTextColor(ILI9341_WHITE);
+  this->setTextSize(2);
+
+  // Print error message
+  tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, (tft->height() - getStringHeightOnScreen(buffer)) / 2);
+  tft->print(buffer);  
+}

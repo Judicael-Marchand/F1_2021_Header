@@ -2,6 +2,9 @@
 #define OTAHANDLER_HPP
 
 #include "ArduinoOTA.h"
+#include "ScreenHandler.hpp"
+
+extern ScreenHandler *mScreenHandler;
 
 class OTAHandler
 {

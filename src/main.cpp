@@ -1,9 +1,20 @@
 #include <Arduino.h>
+#include "OTAHandler.hpp"
+#include "LogDriver.hpp"
+#include "ScreenHandler.hpp"
 
-void setup() {
+ScreenHandler *mScreenHandler;
+
+void setup()
+{
   // put your setup code here, to run once:
+  LOGDriver::init();
+  mScreenHandler = new ScreenHandler();
+  OTAHandler::init();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  OTAHandler::execute();
+  delay(1);
 }

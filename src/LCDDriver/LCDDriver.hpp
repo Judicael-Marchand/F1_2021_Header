@@ -35,6 +35,9 @@ public:
   void updateGearEngaged(int8_t gear);
   void updatePosition(uint8_t position, uint8_t nbDriver);
   void resetScreen(void);
+  void updateFirmwareUpdateProgress(uint8_t percentage);
+  void updateFirmwareUpdateFinished(void);
+  void updateFirmwareUpdateError(String e);
 };
 
 #endif
