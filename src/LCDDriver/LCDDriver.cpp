@@ -88,14 +88,14 @@ void LCDDriver::updateTyreWear(uint8_t rearLeft, uint8_t rearRight, uint8_t fron
   String frontLeftText = String(frontLeft) + "%";
   String frontRightText = String(frontRight) + "%";
 
-  // Calcul color of the tyre by reading the tyre wear
-  // Red color : tyre wear
+  // Calcul color of the tyre by reading the tyre wear (mapped from 0% to 50%)
+  // Red color : tyre wear 
   // Green color : 100% - tyre wear
   // Blue color : always 0 because don't need
-  uint16_t rearLeftColor = convertRGB24toRGB565(map(rearLeft, 0, 100, 0, 255), map(100 - rearLeft, 0, 100, 0, 255), 0);
-  uint16_t rearRightColor = convertRGB24toRGB565(map(rearRight, 0, 100, 0, 255), map(100 - rearRight, 0, 100, 0, 255), 0);
-  uint16_t frontLeftColor = convertRGB24toRGB565(map(frontLeft, 0, 100, 0, 255), map(100 - frontLeft, 0, 100, 0, 255), 0);
-  uint16_t frontRightColor = convertRGB24toRGB565(map(frontRight, 0, 100, 0, 255), map(100 - frontRight, 0, 100, 0, 255), 0);
+  uint16_t rearLeftColor = convertRGB24toRGB565((rearLeft > 50) ? 255 : map(rearLeft, 0, 50, 0, 255), (rearLeft > 50) ? 0 : map(100 - rearLeft, 0, 50, 0, 255), 0);
+  uint16_t rearRightColor = convertRGB24toRGB565((rearRight > 50) ? 255 : map(rearRight, 0, 50, 0, 255), (rearRight > 50) ? 0 : map(100 - rearRight, 0, 50, 0, 255), 0);
+  uint16_t frontLeftColor = convertRGB24toRGB565((frontLeft > 50) ? 255 : map(frontLeft, 0, 50, 0, 255), (frontLeft > 50) ? 0 : map(100 - frontLeft, 0, 50, 0, 255), 0);
+  uint16_t frontRightColor = convertRGB24toRGB565((frontRight > 50) ? 255 : map(frontRight, 0, 50, 0, 255), (frontRight > 50) ? 0 : map(100 - frontRight, 0, 50, 0, 255), 0);
 
   // Multiple nested rectangles because the rectangle thickness couldn't be changed
   for (i = 0; i < TYRE_WEAR_THICKNESS; i++)
