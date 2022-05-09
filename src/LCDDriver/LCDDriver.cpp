@@ -79,6 +79,10 @@ void LCDDriver::updateTyreType(uint8_t tyreType)
 
 void LCDDriver::updateTyreWear(uint8_t rearLeft, uint8_t rearRight, uint8_t frontLeft, uint8_t frontRight)
 {
+  uint8_t i = 0;
+
+  String resetBuffer = "100%"; // Reset buffer is the maximum string size possible
+
   String rearLeftText = String(rearLeft) + "%";
   String rearRightText = String(rearRight) + "%";
   String frontLeftText = String(frontLeft) + "%";
@@ -93,21 +97,33 @@ void LCDDriver::updateTyreWear(uint8_t rearLeft, uint8_t rearRight, uint8_t fron
   uint16_t frontLeftColor = convertRGB24toRGB565(map(frontLeft, 0, 100, 0, 255), map(100 - frontLeft, 0, 100, 0, 255), 0);
   uint16_t frontRightColor = convertRGB24toRGB565(map(frontRight, 0, 100, 0, 255), map(100 - frontRight, 0, 100, 0, 255), 0);
 
-  // Draw the tyre wear rectangle
-  tft->fillRect(TYRE_SCREEN_X_OFFSET, tft->height() - TYRE_SCREEN_HEIGHT - TYRE_SCREEN_Y_OFFSET, TYRE_SCREEN_WIDTH, TYRE_SCREEN_HEIGHT, rearLeftColor);
-  tft->fillRect(tft->width() - (TYRE_SCREEN_WIDTH + TYRE_SCREEN_X_OFFSET), tft->height() - TYRE_SCREEN_HEIGHT - TYRE_SCREEN_Y_OFFSET, TYRE_SCREEN_WIDTH, TYRE_SCREEN_HEIGHT, rearRightColor);
-  tft->fillRect(TYRE_SCREEN_X_OFFSET, TYRE_SCREEN_Y_OFFSET, TYRE_SCREEN_WIDTH, TYRE_SCREEN_HEIGHT, frontLeftColor);
-  tft->fillRect(tft->width() - (TYRE_SCREEN_WIDTH + TYRE_SCREEN_X_OFFSET), TYRE_SCREEN_Y_OFFSET, TYRE_SCREEN_WIDTH, TYRE_SCREEN_HEIGHT, frontRightColor);
+  // Multiple nested rectangles because the rectangle thickness couldn't be changed
+  for (i = 0; i < TYRE_WEAR_THICKNESS; i++)
+  {
+    tft->drawRect(TYRE_SCREEN_X_OFFSET + i, tft->height() - TYRE_SCREEN_HEIGHT - TYRE_SCREEN_Y_OFFSET + i, TYRE_SCREEN_WIDTH - 2 * i, TYRE_SCREEN_HEIGHT - 2 * i, rearLeftColor);
+    tft->drawRect(tft->width() - TYRE_SCREEN_WIDTH - TYRE_SCREEN_X_OFFSET + i, tft->height() - TYRE_SCREEN_HEIGHT - TYRE_SCREEN_Y_OFFSET + i, TYRE_SCREEN_WIDTH - 2 * i, TYRE_SCREEN_HEIGHT - 2 * i, rearRightColor);
+    tft->drawRect(TYRE_SCREEN_X_OFFSET + i, TYRE_SCREEN_Y_OFFSET + i, TYRE_SCREEN_WIDTH - 2 * i, TYRE_SCREEN_HEIGHT - 2 * i, frontLeftColor);
+    tft->drawRect(tft->width() - TYRE_SCREEN_WIDTH - TYRE_SCREEN_X_OFFSET + i, TYRE_SCREEN_Y_OFFSET + i, TYRE_SCREEN_WIDTH - 2 * i, TYRE_SCREEN_HEIGHT - 2 * i, frontRightColor);
+  }
 
   // Print the percentage tyre wear over the tyre wear rectangles
-  tft->setTextColor(ILI9341_BLACK);
+  tft->setTextColor(ILI9341_WHITE);
   this->setTextSize(2);
+  
+  // Rear left
+  resetScreenPart(TYRE_SCREEN_X_OFFSET + (TYRE_SCREEN_WIDTH - getStringWidthOnScreen(resetBuffer)) / 2, tft->height() - ((TYRE_SCREEN_HEIGHT + getStringHeightOnScreen(resetBuffer)) / 2) - TYRE_SCREEN_Y_OFFSET, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
   tft->setCursor(TYRE_SCREEN_X_OFFSET + (TYRE_SCREEN_WIDTH - getStringWidthOnScreen(rearLeftText)) / 2, tft->height() - ((TYRE_SCREEN_HEIGHT + getStringHeightOnScreen(rearLeftText)) / 2) - TYRE_SCREEN_Y_OFFSET);
   tft->print(rearLeftText);
+  // Rear right
+  resetScreenPart(tft->width() - ((TYRE_SCREEN_WIDTH + getStringWidthOnScreen(resetBuffer)) / 2) - TYRE_SCREEN_X_OFFSET, tft->height() - ((TYRE_SCREEN_HEIGHT + getStringHeightOnScreen(resetBuffer)) / 2) - TYRE_SCREEN_Y_OFFSET, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
   tft->setCursor(tft->width() - ((TYRE_SCREEN_WIDTH + getStringWidthOnScreen(rearRightText)) / 2) - TYRE_SCREEN_X_OFFSET, tft->height() - ((TYRE_SCREEN_HEIGHT + getStringHeightOnScreen(rearRightText)) / 2) - TYRE_SCREEN_Y_OFFSET);
   tft->print(rearRightText);
+  // Front left
+  resetScreenPart(TYRE_SCREEN_X_OFFSET + (TYRE_SCREEN_WIDTH - getStringWidthOnScreen(resetBuffer)) / 2, TYRE_SCREEN_Y_OFFSET + (TYRE_SCREEN_HEIGHT - getStringHeightOnScreen(resetBuffer)) / 2, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
   tft->setCursor(TYRE_SCREEN_X_OFFSET + (TYRE_SCREEN_WIDTH - getStringWidthOnScreen(frontLeftText)) / 2, TYRE_SCREEN_Y_OFFSET + (TYRE_SCREEN_HEIGHT - getStringHeightOnScreen(frontLeftText)) / 2);
   tft->print(frontLeftText);
+  // Front right
+  resetScreenPart(tft->width() - ((TYRE_SCREEN_WIDTH + getStringWidthOnScreen(resetBuffer)) / 2) - TYRE_SCREEN_X_OFFSET, TYRE_SCREEN_Y_OFFSET + (TYRE_SCREEN_HEIGHT - getStringHeightOnScreen(resetBuffer)) / 2, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
   tft->setCursor(tft->width() - ((TYRE_SCREEN_WIDTH + getStringWidthOnScreen(frontRightText)) / 2) - TYRE_SCREEN_X_OFFSET, TYRE_SCREEN_Y_OFFSET + (TYRE_SCREEN_HEIGHT - getStringHeightOnScreen(frontRightText)) / 2);
   tft->print(frontRightText);
 }
