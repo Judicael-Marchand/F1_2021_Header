@@ -4,3 +4,4 @@
 .vscode/launch.json
 .vscode/ipch
 src/WiFiDriver/WiFi_Info.hpp
+.vscode/extensions.json
