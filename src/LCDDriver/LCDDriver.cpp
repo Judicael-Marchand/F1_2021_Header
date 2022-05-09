@@ -46,23 +46,23 @@ void LCDDriver::updateTyreType(uint8_t tyreType)
 
   switch (tyreType)
   {
-  case 16: // Soft
+  case SOFT_TYRE: // Soft
     colorTyre = convertRGB24toRGB565(255, 0, 0);
     break;
 
-  case 17: //Medium
+  case MEDIUM_TYRE: //Medium
     colorTyre = convertRGB24toRGB565(255, 255, 0);
     break;
 
-  case 18: // Hard
+  case HARD_TYRE: // Hard
     colorTyre = convertRGB24toRGB565(255, 255, 255);
     break;
 
-  case 7: // Inter
+  case INTER_TYRE: // Inter
     colorTyre = convertRGB24toRGB565(0, 255, 0);
     break;
 
-  case 8: //Wet
+  case WET_TYRE: //Wet
     colorTyre = convertRGB24toRGB565(0, 0, 255);
     break;
   }

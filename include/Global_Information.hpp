@@ -1,5 +1,5 @@
 #ifndef GLOBAL_INFORMATION_HPP
-#define GLOBAL_INFORMATION_CPP
+#define GLOBAL_INFORMATION_HPP
 
 #include <c_types.h>
 
@@ -31,11 +31,29 @@ enum TyreType
     HARD_TYRE
 };
 
+struct TyreSurfaceTemperature
+{
+  uint8_t m_rearLeft;
+  uint8_t m_rearRight;
+  uint8_t m_frontLeft;
+  uint8_t m_frontRight;
+};
+
+struct TyreInnerTemperature
+{
+  uint8_t m_rearLeft;
+  uint8_t m_rearRight;
+  uint8_t m_frontLeft;
+  uint8_t m_frontRight;
+};
+
 struct CarInformation
 {
     TyreWear m_TyreWear;
     TyreType m_currentTyreType;
     int8_t m_gear;
+    TyreSurfaceTemperature m_TyreSurfaceTemperature;
+    TyreInnerTemperature m_TyreInnerTemperature;
 };
 
 enum MessageID

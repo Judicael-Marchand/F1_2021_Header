@@ -2,6 +2,7 @@
 #define LCDDRIVER_HPP
 
 #include "Adafruit_ILI9341.h"
+#include "Global_Information.hpp"
 
 #define TYRE_SCREEN_WIDTH 75
 #define TYRE_SCREEN_HEIGHT 100
