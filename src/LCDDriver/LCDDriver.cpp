@@ -5,6 +5,11 @@
 #define TFT_CS 4
 #define TFT_RST 0 // TFT RST pin is connected to NodeMCU pin D3 = GPIO 0
 
+/**
+ * @brief Construct a new LCDDriver::LCDDriver object
+ * @details Init and print a welcome message before resetting the screen
+ * 
+ */
 LCDDriver::LCDDriver(void)
 {
   // Init LCD instance
@@ -20,10 +25,20 @@ LCDDriver::LCDDriver(void)
   displayWelcomeTitle();
 }
 
+/**
+ * @brief Destroy the LCDDriver::LCDDriver object
+ * 
+ */
 LCDDriver::~LCDDriver()
 {
 }
 
+/**
+ * @brief Update the current and the total lap numbers on the screen
+ * 
+ * @param currentLap Current lap number
+ * @param totalLap Total lap number
+ */
 void LCDDriver::updateLapNumber(uint16_t currentLap, uint16_t totalLap)
 {
   String buffer = "Lap : " + String(currentLap) + "/" + String(totalLap);
@@ -38,7 +53,11 @@ void LCDDriver::updateLapNumber(uint16_t currentLap, uint16_t totalLap)
   tft->print(buffer);
 }
 
-// TODO : Redo the tyreType decoding
+/**
+ * @brief Update the tyre type (Soft, Medium, Hard, Inter, Wet)
+ * 
+ * @param tyreType Tyre type to show
+ */
 void LCDDriver::updateTyreType(uint8_t tyreType)
 {
   uint16_t colorTyre = 0;
@@ -47,23 +66,23 @@ void LCDDriver::updateTyreType(uint8_t tyreType)
   switch (tyreType)
   {
   case SOFT_TYRE: // Soft
-    colorTyre = convertRGB24toRGB565(255, 0, 0);
+    colorTyre = convertRGB24toRGB565(255, 0, 0);  // Red
     break;
 
   case MEDIUM_TYRE: //Medium
-    colorTyre = convertRGB24toRGB565(255, 255, 0);
+    colorTyre = convertRGB24toRGB565(255, 255, 0);  // Yellow
     break;
 
   case HARD_TYRE: // Hard
-    colorTyre = convertRGB24toRGB565(255, 255, 255);
+    colorTyre = convertRGB24toRGB565(255, 255, 255);  // White
     break;
 
   case INTER_TYRE: // Inter
-    colorTyre = convertRGB24toRGB565(0, 255, 0);
+    colorTyre = convertRGB24toRGB565(0, 255, 0);  // Green
     break;
 
   case WET_TYRE: //Wet
-    colorTyre = convertRGB24toRGB565(0, 0, 255);
+    colorTyre = convertRGB24toRGB565(0, 0, 255);  // Blue
     break;
   }
 
@@ -77,6 +96,14 @@ void LCDDriver::updateTyreType(uint8_t tyreType)
   }
 }
 
+/**
+ * @brief Update tyre wear both by drawing colored rectangles and by writing it on the screen
+ * 
+ * @param rearLeft Tyre wear of the rear left wheel (0% - 100%)
+ * @param rearRight Tyre wear of the rear right wheel (0% - 100%)
+ * @param frontLeft Tyre wear of the front left wheel (0% - 100%)
+ * @param frontRight Tyre wear of the front right wheel (0% - 100%)
+ */
 void LCDDriver::updateTyreWear(uint8_t rearLeft, uint8_t rearRight, uint8_t frontLeft, uint8_t frontRight)
 {
   uint8_t i = 0;
@@ -128,6 +155,11 @@ void LCDDriver::updateTyreWear(uint8_t rearLeft, uint8_t rearRight, uint8_t fron
   tft->print(frontRightText);
 }
 
+/**
+ * @brief Update the gear engaged information
+ * 
+ * @param gear Gear engaged (-1 is rear, 0 is neutral, 1..8 are front gears)
+ */
 void LCDDriver::updateGearEngaged(int8_t gear)
 {
   String buffer = String(gear);
@@ -144,6 +176,12 @@ void LCDDriver::updateGearEngaged(int8_t gear)
   tft->print(buffer);
 }
 
+/**
+ * @brief Update the position of the player
+ * 
+ * @param position Position of the player on the grid
+ * @param nbDriver Total number of drivers on the grid
+ */
 void LCDDriver::updatePosition(uint8_t position, uint8_t nbDriver)
 {
   String buffer = "Pos : " + String(position) + "/" + String(nbDriver);
@@ -160,6 +198,10 @@ void LCDDriver::updatePosition(uint8_t position, uint8_t nbDriver)
   tft->print(buffer);
 }
 
+/**
+ * @brief Display a welcome message during the boot of the system
+ * 
+ */
 void LCDDriver::displayWelcomeTitle(void)
 {
   String welcomeMessage = "Welcome <3";
@@ -175,21 +217,44 @@ void LCDDriver::displayWelcomeTitle(void)
   resetScreen();
 }
 
+/**
+ * @brief Set text size
+ * 
+ * @param size Size of the text
+ */
 void LCDDriver::setTextSize(uint8_t size)
 {
   tft->setTextSize(size);
 }
 
+/**
+ * @brief Reset the screen (black)
+ * 
+ */
 void LCDDriver::resetScreen(void)
 {
   tft->fillScreen(ILI9341_BLACK);
 }
 
+/**
+ * @brief Reset a part of the screen (black)
+ * 
+ * @param x0 Origin on the X-grid
+ * @param y0 Origin on the Y-grid
+ * @param w Width of the part to reset
+ * @param h Height of the part to reset
+ */
 void LCDDriver::resetScreenPart(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h)
 {
   tft->fillRect(x0, y0, w, h, ILI9341_BLACK);
 }
 
+/**
+ * @brief Get the width of a given string on the screen
+ * 
+ * @param s String to measure
+ * @return  Width of the given string
+ */
 uint16_t LCDDriver::getStringWidthOnScreen(String s)
 {
   uint16_t stringWidth = 0;
@@ -203,6 +268,12 @@ uint16_t LCDDriver::getStringWidthOnScreen(String s)
   return stringWidth;
 }
 
+/**
+ * @brief Get the height of a given string on the screen
+ * 
+ * @param s String to measure
+ * @return  Height of the given string
+ */
 uint16_t LCDDriver::getStringHeightOnScreen(String s)
 {
   uint16_t stringWidth = 0;
@@ -216,11 +287,24 @@ uint16_t LCDDriver::getStringHeightOnScreen(String s)
   return stringHeight;
 }
 
+/**
+ * @brief Convert a color from a RGB888 system to a RGB565 system
+ * 
+ * @param r Red color on 8 bits
+ * @param g Green color on 8 bits
+ * @param b Blue color on 8 bits
+ * @return  Color on 16 bits following the RGB565 system
+ */
 uint16_t LCDDriver::convertRGB24toRGB565(uint8_t r, uint8_t g, uint8_t b)
 {
   return ((r / 8) << 11) | ((g / 4) << 5) | (b / 8);
 }
 
+/**
+ * @brief Update the firmware update progess on the screen
+ * 
+ * @param percentage Percentage of the update progress
+ */
 void LCDDriver::updateFirmwareUpdateProgress(uint8_t percentage)
 {
   String buffer = "Updating : " + String(percentage) + "%";
@@ -235,8 +319,12 @@ void LCDDriver::updateFirmwareUpdateProgress(uint8_t percentage)
   // Print update percentage
   tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, (tft->height() - getStringHeightOnScreen(buffer)) / 2);
   tft->print(buffer);
-  }
+}
 
+/**
+ * @brief Write a message on the screen to tell the user that the update is finished
+ * 
+ */
 void LCDDriver::updateFirmwareUpdateFinished(void)
 {
   String buffer = "Update finished, restarting...";
@@ -249,6 +337,11 @@ void LCDDriver::updateFirmwareUpdateFinished(void)
   tft->print(buffer);
 }
 
+/**
+ * @brief Write an error message on the screen to tell the user that an error occured during the update
+ * 
+ * @param e String error of the update
+ */
 void LCDDriver::updateFirmwareUpdateError(String e)
 {
   String buffer = "Update error : " + e;
@@ -261,6 +354,11 @@ void LCDDriver::updateFirmwareUpdateError(String e)
   tft->print(buffer);  
 }
 
+/**
+ * @brief Write the battery SOC on the screen
+ * 
+ * @param soc SOC of the battery (0% - 100%)
+ */
 void LCDDriver::updateBatterySOC(uint8_t soc)
 {
   String buffer = "Battery SOC : " + String(soc) + "%";

@@ -13,6 +13,11 @@
 #define TYRE_SCREEN_Y_OFFSET (TYRE_TYPE_THICKNESS)
 #define TYRE_WEAR_THICKNESS 12
 
+/**
+ * @class LCDDriver
+ * @brief Manage the LCD by drawing and writing information on the screen
+ * 
+ */
 class LCDDriver
 {
 private:

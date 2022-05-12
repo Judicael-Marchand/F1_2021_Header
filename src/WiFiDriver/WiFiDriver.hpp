@@ -1,5 +1,5 @@
-#ifndef MOTORCONTROLL_HPP
-#define MOTORCONTROL_HPP
+#ifndef WIFIDRIVER_HPP
+#define WIFIDRIVER_HPP
 
 #include <Arduino.h>
 #include <string.h>
@@ -13,6 +13,11 @@
 #include "LogDriver.hpp"
 #include "WiFi_Info.hpp"
 
+/**
+ * @class WiFiDriver
+ * @brief Manage the WiFi system and reads incoming UDP data
+ * 
+ */
 class WiFiDriver {
   private:
   // Constant

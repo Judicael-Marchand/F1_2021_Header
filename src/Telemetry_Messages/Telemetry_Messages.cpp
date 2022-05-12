@@ -1,5 +1,9 @@
 #include "Telemetry_Messages.hpp"
 
+/**
+ * @brief Construct a new Telemetry_Messages::Telemetry_Messages object
+ * 
+ */
 Telemetry_Messages::Telemetry_Messages(void)
 {
     mUDPParser = new UDP_Parser();
@@ -8,16 +12,29 @@ Telemetry_Messages::Telemetry_Messages(void)
     mMessageID = NO_MESSAGE_ID;
 }
 
+/**
+ * @brief Destroy the Telemetry_Messages::Telemetry_Messages object
+ * 
+ */
 Telemetry_Messages::~Telemetry_Messages(void)
 {
 
 }
 
+/**
+ * @brief Check if the UDP_Parser system has any new information or not
+ * 
+ * @return  True if the UDP_Parser system has new information, False if the UDP_Parser system has no new information
+ */
 boolean Telemetry_Messages::checkRawDataAvailibility(void)
 {
     return mUDPParser->checkDataAvailibility();
 }
 
+/**
+ * @brief Takes the available data in the UDP_Parser system and stores it in the right stucture
+ * 
+ */
 void Telemetry_Messages::storeAvailableData(void)
 {
     switch(mUDPParser->getPacketID())
@@ -65,16 +82,30 @@ void Telemetry_Messages::storeAvailableData(void)
     }
 }
 
+/**
+ * @brief Get the message ID of the incame message
+ * 
+ * @return  The message ID of the incame message
+ */
 enum MessageID Telemetry_Messages::getMessageID(void)
 {
     return mMessageID;
 }
 
+/**
+ * @brief Set the message ID
+ * 
+ * @param messageID The message ID to set
+ */
 void Telemetry_Messages::setMessageID(enum MessageID messageID)
 {
     mMessageID = messageID;
 }
 
+/**
+ * @brief Execute the Telemetry_Messages machine
+ * @details This machine executes the UDP_Parser machine and check if any new message is avaible. If so, it manages the new information
+ */
 void Telemetry_Messages::execute(void)
 {
     mUDPParser->execute();

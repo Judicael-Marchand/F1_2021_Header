@@ -9,6 +9,11 @@
 
 #define BATTERY_UPDATE_TIME 1000  // 1000ms
 
+/**
+ * @class ScreenHandler
+ * @brief This manages the screen by reading the new data from Telemetry_Messages and BatteryDriver and giving the information to the LCDDriver
+ * 
+ */
 class ScreenHandler
 {
 private:

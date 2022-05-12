@@ -1,16 +1,29 @@
 #include "OTAHandler.hpp"
 #include "LogDriver.hpp"
 
+/**
+ * @brief Construct a new OTAHandler::OTAHandler object
+ * 
+ */
 OTAHandler::OTAHandler(void)
 {
 
 }
 
+/**
+ * @brief Destroy the OTAHandler::OTAHandler object
+ * 
+ */
 OTAHandler::~OTAHandler(void)
 {
 
 }
 
+/**
+ * @brief Init the OTA system. This is taken back from the ArduinoOTA documentation
+ * @details LOGDriver and the ScreenHandler are used to inform the user of the advancement
+ * 
+ */
 void OTAHandler::init(void)
 {
     // OTA
@@ -55,6 +68,10 @@ void OTAHandler::init(void)
   ArduinoOTA.begin();
 }
 
+/**
+ * @brief Handle the ArduinoOTA system
+ * 
+ */
 void OTAHandler::execute(void)
 {
   ArduinoOTA.handle();

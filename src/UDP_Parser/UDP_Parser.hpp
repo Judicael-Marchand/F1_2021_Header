@@ -18,6 +18,11 @@
 #include "LogDriver.hpp"
 #include "WiFiDriver.hpp"
 
+/**
+ * @class UDP_Parser
+ * @brief Take the UDP raw packets from the WiFi system and converts them into the packet structures defined by the game
+ * 
+ */
 class UDP_Parser
 {
     private:

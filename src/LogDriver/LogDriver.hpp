@@ -3,6 +3,11 @@
 
 #include "Arduino.h"
 
+/**
+ * class LOGDriver
+ * @brief Manages the log system
+ * 
+ */
 class LOGDriver 
 {
   public:

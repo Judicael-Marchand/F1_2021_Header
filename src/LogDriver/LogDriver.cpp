@@ -1,15 +1,27 @@
 #include "LogDriver.hpp"
 
+/**
+ * @brief Construct a new LOGDriver::LOGDriver object
+ * 
+ */
 LOGDriver::LOGDriver(void)
 {
 
 }
 
+/**
+ * @brief Destroy the LOGDriver::LOGDriver object
+ * 
+ */
 LOGDriver::~LOGDriver(void)
 {
 
 }
 
+/**
+ * @brief Init the LOGDriver system
+ * 
+ */
 void LOGDriver::init(void)
 {
 #ifdef LOG_SERIAL
@@ -23,6 +35,11 @@ void LOGDriver::init(void)
 #endif
 }
 
+/**
+ * @brief Print the log on serial wire
+ * 
+ * @param s String to print
+ */
 void LOGDriver::println(String s)
 {
 #ifdef LOG_SERIAL

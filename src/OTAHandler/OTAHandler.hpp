@@ -6,6 +6,11 @@
 
 extern ScreenHandler *mScreenHandler;
 
+/**
+ * @class OTAHandler
+ * @brief Manage the OTA update to avoid putting the system into flash mode each time
+ * 
+ */
 class OTAHandler
 {
   private:

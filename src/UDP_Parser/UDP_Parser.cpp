@@ -1,5 +1,9 @@
 #include "UDP_Parser.hpp"
 
+/**
+ * @brief Construct a new udp parser::udp parser object
+ * 
+ */
 UDP_Parser::UDP_Parser(void)
 {
     // Init instances
@@ -25,16 +29,30 @@ UDP_Parser::UDP_Parser(void)
     memset(&mPacketSessionHistoryData, 0 , SESSION_HISTORY_PACKET_SIZE);
 }
 
+/**
+ * @brief Destroy the udp parser::udp parser object
+ * 
+ */
 UDP_Parser::~UDP_Parser(void)
 {
 
 }
 
+/**
+ * @brief Check if any new information from WiFi is available
+ * 
+ * @return  
+ */
 boolean UDP_Parser::checkRawDataAvailibility(void)
 {
     return mWiFiDriver->checkDataAvailibility();
 }
 
+/**
+ * @brief Decode the data received from WiFi
+ * @details A packet header is available on each packet. This header always gives a packet ID to know which packet does it come from
+ * 
+ */
 void UDP_Parser::decodeData(void)
 {
     mWiFiDriver->getPacketData(mUDPRawPacketData, MAX_UDP_PACKET_LENGTH);   // Get the raw packet received from wifi
@@ -100,26 +118,51 @@ void UDP_Parser::decodeData(void)
     mIsDataAvailable = true;    // Raise the flag
 }
 
+/**
+ * @brief Check if any new information is available from the UDP_Parser system
+ * 
+ * @return  True of any data is available, False if no data is available
+ */
 boolean UDP_Parser::checkDataAvailibility(void)
 {
     return mIsDataAvailable;
 }
 
+/**
+ * @brief Set the data availability
+ * 
+ * @param b True if data is available, False if data is not available
+ */
 void UDP_Parser::setDataAvailibility(boolean b)
 {
     mIsDataAvailable = b;
 }
 
+/**
+ * @brief Get the packet ID of the available data
+ * 
+ * @return  The packet ID of the available data
+ */
 enum PacketID UDP_Parser::getPacketID(void)
 {
     return mPacketID;
 }
 
+/**
+ * @brief Get the player car index
+ * 
+ * @return  The player car index
+ */
 uint8_t UDP_Parser::getPlayerCarIndex(void)
 {
     return mPlayerCarIndex;
 }
 
+/**
+ * @brief Execute the UDP_Parser machine
+ * @details This machine checks if any data is available from the WiFi system. If so, it reads the data and decodes it
+ * 
+ */
 void UDP_Parser::execute(void)
 {
     if(this->checkRawDataAvailibility())

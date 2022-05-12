@@ -1,5 +1,9 @@
 #include "ScreenHandler.hpp"
 
+/**
+ * @brief Construct a new Screen Handler:: Screen Handler object
+ * 
+ */
 ScreenHandler::ScreenHandler(void)
 {
   mTelemetryMessages = new Telemetry_Messages();
@@ -7,11 +11,20 @@ ScreenHandler::ScreenHandler(void)
   mBatteryDriver = new BatteryDriver();
 }
 
+/**
+ * @brief Destroy the Screen Handler:: Screen Handler object
+ * 
+ */
 ScreenHandler::~ScreenHandler()
 {
 
 }
 
+/**
+ * @brief Execute the ScreenHandler machine
+ * @details Read the Telemetry_Messages information and the BatteryDriver information and gives it to the LCDDriver system
+ * 
+ */
 void ScreenHandler::execute(void)
 {
   static uint32_t previousTime = 0;
@@ -60,21 +73,39 @@ void ScreenHandler::execute(void)
   }
 }
 
+/**
+ * @brief Print the update progress on the screen
+ * 
+ * @param percentage Percentage of the update progress (0% - 100%)
+ */
 void ScreenHandler::printUpdateProgress(uint8_t percentage)
 {
   mLCDDriver->updateFirmwareUpdateProgress(percentage);
 }
 
+/**
+ * @brief Print the update finished message on the screen
+ * 
+ */
 void ScreenHandler::printUpdateFinished(void)
 {
   mLCDDriver->updateFirmwareUpdateFinished();
 }
 
+/**
+ * @brief Print the update error message on the screen
+ * 
+ * @param e String of the error
+ */
 void ScreenHandler::printUpdateError(String e)
 {
   mLCDDriver->updateFirmwareUpdateError(e);
 }
 
+/**
+ * @brief Reset the screen (screen is completely black)
+ * 
+ */
 void ScreenHandler::resetScreen(void)
 {
   mLCDDriver->resetScreen();
