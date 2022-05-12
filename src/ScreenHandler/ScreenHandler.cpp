@@ -4,6 +4,7 @@ ScreenHandler::ScreenHandler(void)
 {
   mTelemetryMessages = new Telemetry_Messages();
   mLCDDriver = new LCDDriver();
+  mBatteryDriver = new BatteryDriver();
 }
 
 ScreenHandler::~ScreenHandler()
@@ -13,7 +14,9 @@ ScreenHandler::~ScreenHandler()
 
 void ScreenHandler::execute(void)
 {
+  static uint32_t previousTime = 0;
   mTelemetryMessages->execute();
+
   switch (mTelemetryMessages->getMessageID())
   {
   case NO_MESSAGE_ID:
@@ -47,6 +50,13 @@ void ScreenHandler::execute(void)
 
     mTelemetryMessages->setMessageID(NO_MESSAGE_ID);
     break;
+  }
+
+  if(millis() > (previousTime + BATTERY_UPDATE_TIME))
+  {
+    mBatteryDriver->execute();
+    mLCDDriver->updateBatterySOC(mBatteryDriver->getBatterySOC());
+    previousTime = millis();
   }
 }
 

@@ -260,3 +260,19 @@ void LCDDriver::updateFirmwareUpdateError(String e)
   tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, (tft->height() - getStringHeightOnScreen(buffer)) / 2);
   tft->print(buffer);  
 }
+
+void LCDDriver::updateBatterySOC(uint8_t soc)
+{
+  String buffer = "Battery SOC : " + String(soc) + "%";
+  String resetBuffer = "Battery SOC : 100%";
+
+  tft->setTextColor(ILI9341_WHITE);
+  this->setTextSize(1);
+
+  // Reset the screen part of the percentage
+  resetScreenPart((tft->width() - getStringWidthOnScreen(resetBuffer)) / 2, getStringHeightOnScreen(resetBuffer) / 2 + 20, getStringWidthOnScreen(resetBuffer), getStringHeightOnScreen(resetBuffer));
+
+  // Print update percentage
+  tft->setCursor((tft->width() - getStringWidthOnScreen(buffer)) / 2, getStringHeightOnScreen(buffer) / 2 + 20);
+  tft->print(buffer);
+}

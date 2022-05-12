@@ -40,6 +40,7 @@ public:
   void updateFirmwareUpdateProgress(uint8_t percentage);
   void updateFirmwareUpdateFinished(void);
   void updateFirmwareUpdateError(String e);
+  void updateBatterySOC(uint8_t soc);
 };
 
 #endif

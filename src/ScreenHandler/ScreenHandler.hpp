@@ -1,15 +1,20 @@
 #ifndef SCREENHANDLER_HPP
 #define SCREENHANDLER_HPP
 
+#include "Arduino.h"
 #include "Telemetry_Messages.hpp"
 #include "LCDDriver.hpp"
 #include "LogDriver.hpp"
+#include "BatteryDriver.hpp"
+
+#define BATTERY_UPDATE_TIME 1000  // 1000ms
 
 class ScreenHandler
 {
 private:
   Telemetry_Messages *mTelemetryMessages;
   LCDDriver *mLCDDriver;
+  BatteryDriver *mBatteryDriver;
 
 public:
   ScreenHandler(void);
