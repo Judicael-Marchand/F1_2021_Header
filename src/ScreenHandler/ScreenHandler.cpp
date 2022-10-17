@@ -17,7 +17,9 @@ ScreenHandler::ScreenHandler(void)
  */
 ScreenHandler::~ScreenHandler()
 {
-
+  delete mTelemetryMessages;
+  delete mLCDDriver;
+  delete mBatteryDriver;
 }
 
 /**

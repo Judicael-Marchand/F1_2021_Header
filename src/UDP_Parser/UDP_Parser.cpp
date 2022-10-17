@@ -35,7 +35,7 @@ UDP_Parser::UDP_Parser(void)
  */
 UDP_Parser::~UDP_Parser(void)
 {
-
+    delete mWiFiDriver;
 }
 
 /**

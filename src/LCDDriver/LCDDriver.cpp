@@ -31,6 +31,7 @@ LCDDriver::LCDDriver(void)
  */
 LCDDriver::~LCDDriver()
 {
+  delete tft;
 }
 
 /**
