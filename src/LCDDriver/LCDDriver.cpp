@@ -16,7 +16,7 @@ LCDDriver::LCDDriver(void)
   tft = new Adafruit_ILI9341(TFT_CS, TFT_DC);
   // Init LCD
   tft->begin();
-  tft->setRotation(1); // Landscape position
+  tft->setRotation(3); // Landscape position
   tft->fillScreen(ILI9341_BLACK);
   tft->setTextColor(ILI9341_WHITE);
   this->setTextSize(2);
